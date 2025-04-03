@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>simbarashe mawere</title>
+    <meta name="author" content="simbarashe mawere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  </head>
+
+  <body>
+    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+      <tbody>
+        <tr style="padding:0px">
+          <td style="padding:0px">
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr style="padding:0px">
+                  <td style="padding:2.5%;width:63%;vertical-align:middle">
+                    <p class="name" style="text-align: center;">
+                      simbarashe mawere
+                    </p>
+                    <p>i am a masters student at the university of cape town, where i am advised by jan buys and francois meyer. my research focuses on nlp with a particular research interest in tokenisation approaches that are more morphologically aware.
+                    </p>
+                    <p>
+                      i did my undergraduate and honours degrees at the university of cape town where my research focused on using neural models for morphological analysis of the nguni languages.
+                    </p>
+                    <p style="text-align:center">
+                      <a href="mailto:mwrsim003@myuct.ac.za">email</a> &nbsp;/&nbsp;
+                      <a href="data/cv.pdf">cv</a> &nbsp;/&nbsp;
+                      <a href="data/bio.txt">bio</a> &nbsp;/&nbsp;
+                      <!-- <a href="#">scholar</a> &nbsp;/&nbsp; -->
+                      <a href="https://github.com/darthskyy/">github</a> &nbsp;/&nbsp;
+                      <a href="https://open.spotify.com/user/69sgkpqe3qgnsms319miz062v">spotify</a> &nbsp;/&nbsp;
+                      <a href="https://last.fm/user/simbamaw1547">lastfm</a>
+                    </p>
+                  </td>
+                  <td style="padding:2.5%;width:37%;max-width:37%">
+                    <a href="images/JonBarron.jpg"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 50%;" alt="profile photo" src="images/profile.jpg" class="hoverZoomLink"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr>
+                  <td style="padding:16px;width:100%;vertical-align:middle">
+                    <h2>experience</h2>
+                    <br>
+                    <div id="experience-content" style="display: flex; flex-wrap: wrap; gap: 20px;"></div>
+                    <script>
+                      fetch('data/xp.txt')
+                      .then(response => response.text())
+                      .then(data => {
+                        const content = document.getElementById('experience-content');
+                        const rows = data.trim().split('\n');
+                        rows.forEach(row => {
+                          const [date, company, url, title, description] = row.split('|');
+                          const div = document.createElement('div');
+                          div.style.width = 'calc(50% - 10px)'; // 50% width minus half the gap
+                          div.style.boxSizing = 'border-box';
+                          div.innerHTML = `
+                            <strong>${date}</strong> &nbsp;/&nbsp;
+                            <a href="${url}">${company}</a>
+                            <br>
+                            <em>${title}</em>
+                            <br>
+                            ${description}
+                            <br>
+                          `;
+                          content.appendChild(div);
+                        });
+                      });
+                    </script>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+              </tbody>
+            </table>
+            
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr>
+                  <td style="padding:16px;width:100%;vertical-align:middle">
+                    <h2>research</h2>
+                    <p>
+                      i haven't done much research yet but i am interested in the following topics:
+                      <ul>
+                        <li>tokenisation</li>
+                        <li>morphological analysis</li>
+                        <li>neural networks</li>
+                        <li>natural language processing</li>
+                      </ul>
+                      i have done some work in my undergraduate and honours degrees on using neural networks for morphological analysis of the nguni languages but none of it is published yet. i am currently working on a project that uses neural networks for morphological analysis of the nguni languages.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr>
+                  <td style="padding:16px;width:100%;vertical-align:middle">
+                    <h2>publications</h2>
+                    <div id="publications-content"></div>
+                    <script>
+                      fetch('data/pubs.txt')
+                      .then(response => response.text())
+                      .then(data => {
+                        const content = document.getElementById('publications-content');
+                        if (data === "") {
+                          content.innerHTML = '<p>i haven\'t published anything yet but watch this space.</p>';
+                          return;
+                        }
+                        const rows = data.trim().split('\n');
+                        rows.forEach(row => {
+                          const [title, authors, venue, year, url, description, image] = row.split('|');
+                          const div = document.createElement('div');
+                          div.style.marginBottom = '20px';
+                          div.style.display = 'flex';
+                          div.style.gap = '16px';
+                          
+                          div.innerHTML = `
+                            <div style="width:20%;vertical-align:middle">
+                              <div class="one">
+                                <img src='images/${image || "placeholder.jpg"}' width=100%>
+                              </div>
+                            </div>
+                            <div style="width:80%;vertical-align:middle">
+                              <a href="${url}">
+                                <span class="papertitle">${title}</span>
+                              </a>
+                              <br>
+                              ${authors}
+                              <br>
+                              <em>${venue}</em>, ${year}
+                              <br>
+                              <p>${description}</p>
+                            </div>
+                          `;
+                          content.appendChild(div);
+                        });
+                      })
+                      .catch(error => {
+                        console.error('Error loading publications:', error);
+                        document.getElementById('publications-content').innerHTML = 
+                          '<p>i haven\'t published anything yet but watch this space.</p>';
+                      });
+                    </script>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+              <tr>
+              <td style="padding:16px;width:100%;vertical-align:middle">
+              <h2>Miscellanea</h2>
+              <div id="miscellanea-content"></div>
+              <script>
+                // Function to get a random color
+                function getRandomColor() {
+                const colors = ['#fcb97d', '#aaba9e', '#c6b89e', '#edd892'];
+                return colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                const content = document.getElementById('miscellanea-content');
+                
+                // Create a table to hold all sections
+                const table = document.createElement('table');
+                table.style.width = '100%';
+                table.style.border = '0px';
+                table.style.borderSpacing = '0px';
+                table.style.borderCollapse = 'separate';
+                table.style.marginRight = 'auto';
+                table.style.marginLeft = 'auto';
+                const tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+                
+                // Fetch the list of files in the misc directory
+                fetch('data/misc/')
+                .then(response => {
+                if (!response.ok) {
+                throw new Error('Directory listing not supported. Using fallback method.');
+                }
+                return response.text();
+                })
+                .then(html => {
+                // Parse HTML to extract .txt file names
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const links = doc.querySelectorAll('a');
+                const sections = [...links]
+                .filter(link => link.href.endsWith('.txt'))
+                .map(link => {
+                  const filename = link.href.split('/').pop();
+                  return {
+                  id: filename.replace('.txt', ''),
+                  color: getRandomColor()
+                  };
+                });
+                return sections;
+                })
+                .catch(error => {
+                console.error('Error listing directory:', error);
+                // Fallback: try to load common sections
+                return [
+                'micropapers', 'recorded-talks', 'academic-service', 'teaching'
+                ].map(id => ({ id, color: getRandomColor() }));
+                })
+                .then(sections => {
+                // Load each section
+                return Promise.all(sections.map(section => {
+                return fetch(`data/misc/${section.id}.txt`)
+                  .then(response => {
+                  if (!response.ok) {
+                  throw new Error(`File ${section.id}.txt not found`);
+                  }
+                  return response.text();
+                  })
+                  .then(data => {
+                  // Create a row for this section
+                  const tr = document.createElement('tr');
+                  
+                  // Create title cell
+                  const titleCell = document.createElement('td');
+                  titleCell.align = 'center';
+                  titleCell.style.padding = '16px';
+                  titleCell.style.width = '20%';
+                  titleCell.style.verticalAlign = 'middle';
+                  
+                  const titleBox = document.createElement('div');
+                  titleBox.className = 'colored-box';
+                  titleBox.style.backgroundColor = section.color;
+                  titleBox.style.width = '100%'; // Make all boxes same width
+                  titleBox.style.minWidth = '120px'; // Add minimum width
+                  titleBox.style.maxWidth = '120px'; // Add maximum width
+                  titleBox.style.margin = '0 auto'; // Center the box
+                  
+                  const title = document.createElement('h2');
+                  title.textContent = section.id.split('-').join(' ');
+                  
+                  titleBox.appendChild(title);
+                  titleCell.appendChild(titleBox);
+                  
+                  // Create content cell
+                  const contentCell = document.createElement('td');
+                  contentCell.style.padding = '8px';
+                  contentCell.style.width = '80%';
+                  contentCell.style.verticalAlign = 'center';
+                  
+                  // Parse the data and add links
+                  if (data.trim()) {
+                  const items = data.trim().split('\n');
+                  items.forEach((item, i) => {
+                  const [title, url] = item.split('|');
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.textContent = title;
+                  contentCell.appendChild(link);
+                  
+                  if (i < items.length - 1) {
+                    contentCell.appendChild(document.createElement('br'));
+                  }
+                  });
+                  } else {
+                  contentCell.textContent = 'No items available';
+                  }
+                  
+                  // Add cells to row
+                  tr.appendChild(titleCell);
+                  tr.appendChild(contentCell);
+                  
+                  return tr;
+                  })
+                  .catch(error => {
+                  console.error(`Error loading ${section.id}:`, error);
+                  return null; // Skip this section if it fails to load
+                  });
+                }));
+                })
+                .then(rows => {
+                // Filter out null rows (failed sections)
+                rows.filter(row => row !== null).forEach(row => tbody.appendChild(row));
+                content.appendChild(table);
+                });
+              </script>
+              </td>
+              </tr>
+              </tbody>
+            </table>
+            
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr>
+                  <td style="padding:0px">
+                    <br>
+                    <p style="text-align:center;font-size:small;">
+                      <a href="https://github.com/jonbarron/jonbarron_website">template credit (i didn't make this lol)</a> <br> i made a few changes but feel free to use this template for your own website.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
