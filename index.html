@@ -42,7 +42,77 @@
                 </tr>
               </tbody>
             </table>
-            
+
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+              <tbody>
+                <tr>
+                  <td style="padding:16px;width:100%;vertical-align:middle">
+                    <h2>now playing</h2>
+                    <p id="lastScrobble">Loading...</p>
+                    <script>
+                      async function updateLastScrobble() {
+                        // Client-side API keys (consider using a backend proxy for production)
+                        const LASTFM_KEY = 'LASTFM_KEY_PLACEHOLDER'; // Replace with your actual API key
+                        const LASTFM_USERNAME = 'simbamaw1547';
+                        const LASTFM_URL = 'https://ws.audioscrobbler.com/2.0/';
+                        
+                        try {
+                          const response = await fetch(
+                            `${LASTFM_URL}?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_KEY}&format=json&limit=2`
+                          );
+                          const data = await response.json();
+                          // last full scrobblex
+                          const scrobble = data.recenttracks.track[1];
+                          console.log(data)
+                          // Check if there's a track playing
+                          if (!scrobble) {
+                            return "No recently played tracks found";
+                          }
+                          
+                          const track = scrobble.name;
+                          const artist = scrobble.artist['#text'];
+                          
+                          // Check if the track is currently playing
+                          if (scrobble['@attr'] && scrobble['@attr'].nowplaying === 'true') {
+                            return { 
+                              message: `Now playing: <a href="${scrobble.url}">${track}</a> by <a href="https://www.last.fm/music/${encodeURIComponent(scrobble.artist['#text'])}">${artist}</a>`,
+                              scrobble: scrobble
+                            };
+                          }
+                          
+                          // Calculate time since played
+                          const time = new Date(parseInt(scrobble.date.uts) * 1000);
+                          const now = new Date();
+                          const minutes = Math.floor((now - time) / 60000);
+                          const formattedTime = minutes === 1 ? 'minute' : 'minutes';
+                          
+                          return { 
+                            message: `Last listened to <a href="${scrobble.url}">${track}</a> by <a href="https://www.last.fm/music/${encodeURIComponent(scrobble.artist['#text'])}">${artist}</a>, ${minutes} ${formattedTime} ago`,
+                            scrobble: scrobble
+                          };
+                        } catch (error) {
+                          console.error('Error fetching last scrobble:', error);
+                          return "Could not load track information.";
+                        }
+                      }
+
+                      // Update the DOM when the data is loaded
+                      updateLastScrobble().then((result) => {
+                        const lastScrobbleEl = document.getElementById('lastScrobble');
+                        if (typeof result === 'string') {
+                          lastScrobbleEl.textContent = result;
+                        } else {
+                          const scrobble = result.scrobble;
+                          const message = result.message;
+                          lastScrobbleEl.innerHTML = `<p>${message}</p>`;
+                        }
+                      });
+                    </script>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
             <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
               <tbody>
                 <tr>

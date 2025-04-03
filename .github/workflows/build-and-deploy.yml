@@ -1,0 +1,23 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [ launch ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Replace API Key 🔑
+        run: |
+          find . -type f -name "*.html" -exec sed -i "s/LASTFM_KEY_PLACEHOLDER/${{ secrets.LASTFM_API_KEY }}/g" {} \;
+          
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
