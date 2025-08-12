@@ -207,32 +207,87 @@
                           content.innerHTML = '<p>i haven\'t published anything yet but watch this space.</p>';
                           return;
                         }
-                        const rows = data.trim().split('\n');
-                        rows.forEach(row => {
-                          const [title, authors, venue, year, url, description, image] = row.split('|');
-                          const div = document.createElement('div');
-                          div.className = 'publication-item'; // Add class instead of inline styles
 
-                          div.innerHTML = `
-                            <div class="publication-image">
-                              <div class="one">
-                                <img src='images/${image || "placeholder.jpg"}' width=100%>
+                        // Create a table for publications
+                        const table = document.createElement('table');
+                        table.style.width = '100%';
+                        table.style.border = '0px';
+                        table.style.borderSpacing = '0px';
+                        table.style.borderCollapse = 'separate';
+                        table.style.marginRight = 'auto';
+                        table.style.marginLeft = 'auto';
+
+                        const tbody = document.createElement('tbody');
+                        table.appendChild(tbody);
+
+                        const rows = data.trim().split('\n');
+                        // remove comments
+                        const filteredRows = rows.filter(row => !row.startsWith('#!#'));
+                        filteredRows.forEach((row, index) => {
+                          const [title, authors, venue, year, url, description, image] = row.split('|');
+                          const tr = document.createElement('tr');
+
+                          // Generate unique function names for each publication
+                          const functionPrefix = `pub_${index}`;
+
+                          tr.setAttribute('onmouseout', `${functionPrefix}_stop()`);
+                          tr.setAttribute('onmouseover', `${functionPrefix}_start()`);
+
+                          // Image cell
+                          const imageCell = document.createElement('td');
+                          imageCell.style.padding = '16px';
+                          imageCell.style.width = '20%';
+                          imageCell.style.verticalAlign = 'middle';
+
+                          imageCell.innerHTML = `
+                            <div class="one">
+                              <div class="two" id='${functionPrefix}_image'>
+                                <img src='images/${image || "placeholder.jpg"}' width="160">
                               </div>
-                            </div>
-                            <div class="publication-content">
-                              <a href="${url}">
-                                <span class="papertitle">${title}</span>
-                              </a>
-                              <br>
-                              ${authors}
-                              <br>
-                              <em>${venue}</em>, ${year}
-                              <br>
-                              <p>${description}</p>
+                              <img src='images/${image || "placeholder.jpg"}' width="160">
                             </div>
                           `;
-                          content.appendChild(div);
+
+                          // Content cell
+                          const contentCell = document.createElement('td');
+                          contentCell.style.padding = '8px';
+                          contentCell.style.width = '80%';
+                          contentCell.style.verticalAlign = 'middle';
+
+                          contentCell.innerHTML = `
+                            <a href="${url}">
+                              <span class="papertitle">${title}</span>
+                            </a>
+                            <br>
+                            ${authors}
+                            <br>
+                            <em>${venue}</em>, ${year}
+                            <br>
+                            <a href="${url}">paper</a>
+                            <p></p>
+                            <p>${description}</p>
+                          `;
+
+                          // Add script for hover effects
+                          const script = document.createElement('script');
+                          script.type = 'text/javascript';
+                          script.innerHTML = `
+                            function ${functionPrefix}_start() {
+                              document.getElementById('${functionPrefix}_image').style.opacity = "1";
+                            }
+                            function ${functionPrefix}_stop() {
+                              document.getElementById('${functionPrefix}_image').style.opacity = "0";
+                            }
+                            ${functionPrefix}_stop();
+                          `;
+
+                          tr.appendChild(imageCell);
+                          tr.appendChild(contentCell);
+                          tbody.appendChild(tr);
+                          tbody.appendChild(script);
                         });
+
+                        content.appendChild(table);
                       })
                       .catch(error => {
                         console.error('Error loading publications:', error);
