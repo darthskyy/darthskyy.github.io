@@ -1,0 +1,3 @@
+i am a masters student at the university of cape town, where i am advised by [jan buys](https://www.janmbuys.com/) and [francois meyer](https://francois-meyer.github.io/). my research focuses on nlp with a particular research interest in tokenisation approaches that are more morphologically aware.
+
+i did my undergraduate and honours degrees at the university of cape town where my research focused on using neural models for morphological analysis of the nguni languages.
