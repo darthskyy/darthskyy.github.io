@@ -1,3 +1,5 @@
+#!# format is:
+#!# date|company|url|title|location
 january 2026 - october 2026|sozo labs|https://sozolabs.com/|junior game developer|cape town, south africa
 february 2025 - july 2026|university of cape town|https://sit.uct.ac.za/|assistant lecturer|cape town, south africa
 october 2024 - november 2024|university of cape town|https://sit.uct.ac.za/|research assistant|cape town, south africa

@@ -3,10 +3,18 @@ this is the source code to my public page, darthskyy.github.io. feel free to for
 ### specific changes
 
 - **dynamic content loading**:
-  - added fetching from external text files for experience, publications, and miscellaneous sections
+  - added fetching from external text files for bio, experience, publications, and miscellaneous sections
   - implemented pipe-separated (|) data format for easy content updates without touching HTML
+  - bio loads from data/bio.txt:
+    - leave a blank line between paragraphs
+    - write links as `[link text](url)`
   - publications load from data/pubs.txt with title|authors|venue|year|url|description|image format
-  - experience loads from data/xp.txt with date|company|url|title|description format
+    - lines starting with `#!#` are comments and get skipped
+    - fields can contain html, e.g. `<strong>` around your own name
+    - image is a filename in images/. if you leave it blank the page looks for images/placeholder.jpg, which doesn't exist yet
+  - experience loads from data/xp.txt with date|company|url|title|location format
+    - use `#` as the url if there's nothing to link to
+    - lines starting with `#!#` are comments and get skipped
   - miscellanea section:
     - each section should be its own file. the title of the section is the name of the file. use "-" to separate words in the filename not " ".
     - section loads from data/misc/section-name.txt with title|url

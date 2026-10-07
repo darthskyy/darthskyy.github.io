@@ -24,17 +24,18 @@
                   <p class="name" style="text-align: center;">
                     simbarashe mawere
                   </p>
-                  <p>i am a masters student at the university of cape town, where i am advised by <a
-                      href="https://www.janmbuys.com/">jan buys</a> and <a
-                      href="https://francois-meyer.github.io/">francois
-                      meyer</a>. my research focuses on nlp with a particular research interest in tokenisation
-                    approaches
-                    that are more morphologically aware.
-                  </p>
-                  <p>
-                    i did my undergraduate and honours degrees at the university of cape town where my research focused
-                    on using neural models for morphological analysis of the nguni languages.
-                  </p>
+                  <div id="bio-content"></div>
+                  <script>
+                    fetch('data/bio.txt')
+                      .then(response => response.text())
+                      .then(data => {
+                        const content = document.getElementById('bio-content');
+                        // paragraphs are separated by blank lines, links are written as [text](url)
+                        content.innerHTML = data.trim().split(/\r?\n\s*\r?\n/)
+                          .map(para => '<p>' + para.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>') + '</p>')
+                          .join('');
+                      });
+                  </script>
                   <p style="text-align:center">
                     <a href="mailto:mwrsim003@myuct.ac.za">email</a> &nbsp;/&nbsp;
                     <a href="data/cv.pdf">cv</a> &nbsp;/&nbsp;
@@ -142,7 +143,9 @@
                       .then(data => {
                         const content = document.getElementById('experience-content');
                         const rows = data.trim().split('\n');
-                        rows.forEach(row => {
+                        // remove comments
+                        const filteredRows = rows.filter(row => !row.startsWith('#!#'));
+                        filteredRows.forEach(row => {
                           const [date, company, url, title, description] = row.split('|');
                           const div = document.createElement('div');
                           div.style.width = 'calc(50% - 10px)'; // 50% width minus half the gap
